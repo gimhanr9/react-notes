@@ -1,8 +1,5 @@
-function DeleteNote(){
-    return(
-        <div></div>
-    );
-
+function DeleteNote() {
+  return <div></div>;
 }
 
 export default DeleteNote;

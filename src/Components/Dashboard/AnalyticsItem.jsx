@@ -1,70 +1,67 @@
-import React from "react";
-
-/*import IconButton from "@material-ui/core/IconButton";
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
-import Divider from "@material-ui/core/Divider";*/
-
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column",
+const useStyles = makeStyles({
+  root: {
+    width: 175,
+    borderRadius: 15,
   },
   bullet: {
     display: "inline-block",
     margin: "0 2px",
     transform: "scale(0.8)",
   },
-
+  title: {
+    fontSize: 14,
+  },
+  amount: {
+    marginTop: 22,
+    fontWeight: 700,
+  },
   pos: {
     marginBottom: 12,
   },
 
   percentage: {
-    fontSize: 12,
+    fontSize: 18,
     color: "#32CD32",
   },
 
   icon: {
     color: "#32CD32",
-    fontSize: 12,
+    fontSize: 18,
   },
-}));
+});
 
-function Customer() {
-  const numberOfCustomers = 40;
+function AnalyticsItem() {
   const classes = useStyles();
   return (
-    <Card className={classes.card}>
+    <Card className={classes.root}>
       <CardContent>
-        <Box>
-          <Typography variant="subtitle1" gutterBottom>
-            Customers
-          </Typography>
-        </Box>
+        <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+        >
+          Likes
+        </Typography>
         <Typography
           className={classes.amount}
-          //align="center"
+          align="center"
           variant="h4"
           component="h1"
           gutterBottom
         >
-          {numberOfCustomers}
+          4283
         </Typography>
-        <Box display="flex" m={-1}>
-          <ArrowDownwardIcon className={classes.icon} />
-          <span className={classes.percentage}>
-            8.7% compared to the last period
-          </span>
+        <Box display="flex" alignItems="center" justifyContent="center" m={-1}>
+          <ArrowUpwardIcon className={classes.icon} />
+          <span className={classes.percentage}>8.7%</span>
         </Box>
         <Box
           display="flex"
@@ -80,4 +77,4 @@ function Customer() {
   );
 }
 
-export default Customer;
+export default AnalyticsItem;

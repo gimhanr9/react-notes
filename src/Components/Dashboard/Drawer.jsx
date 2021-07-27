@@ -1,5 +1,5 @@
 import Drawer from "@material-ui/core/Drawer";
-
+import PropTypes from "prop-types";
 import List from "@material-ui/core/List";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
@@ -14,6 +14,7 @@ import NoteIcon from "@material-ui/icons/Note";
 import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
@@ -66,8 +67,8 @@ function DrawerComponent(props) {
       <Divider />
       <List>
         {["Dashboard"].map((text, index) => (
-          <Link className={classes.linkStyle} to="/">
-            <ListItem button key={text}>
+          <Link key={index} className={classes.linkStyle} to="/">
+            <ListItem button>
               <ListItemIcon>{<AccountBalanceIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -76,39 +77,53 @@ function DrawerComponent(props) {
       </List>
       <Divider />
       <List>
-        {['Notes','Create Note','Favorites','Delete'].map((text, index) => (
-          index == 0 ? 
-            <Link className={classes.linkStyle} to="/notes">
-            <ListItem button key={text}>
-              <ListItemIcon>{<NoteIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          </Link>
-           : index==1?
-            <Link className={classes.linkStyle} to="/create">
-            <ListItem button key={text}>
-              <ListItemIcon>{<NoteAddIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          </Link>
-           : index==2?
-            <Link className={classes.linkStyle} to="/favorites">
-            <ListItem button key={text}>
-              <ListItemIcon>{<FavoriteIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-            </Link>
-          :<Link className={classes.linkStyle} to="/delete">
-            <ListItem button key={text}>
-              <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-            </Link>
-          
-        ))}
+        {["Notes", "Create Note", "Favorites", "Delete", "Orders"].map(
+          (text, index) =>
+            index == 0 ? (
+              <Link key={index} className={classes.linkStyle} to="/notes">
+                <ListItem button>
+                  <ListItemIcon>{<NoteIcon />}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
+            ) : index == 1 ? (
+              <Link key={index} className={classes.linkStyle} to="/create">
+                <ListItem button>
+                  <ListItemIcon>{<NoteAddIcon />}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
+            ) : index == 2 ? (
+              <Link key={index} className={classes.linkStyle} to="/favorites">
+                <ListItem button>
+                  <ListItemIcon>{<FavoriteIcon />}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
+            ) : index == 3 ? (
+              <Link key={index} className={classes.linkStyle} to="/delete">
+                <ListItem button>
+                  <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
+            ) : (
+              <Link key={index} className={classes.linkStyle} to="/orders">
+                <ListItem button>
+                  <ListItemIcon>{<AttachMoneyIcon />}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
+            )
+        )}
       </List>
     </Drawer>
   );
 }
+
+DrawerComponent.propTypes = {
+  handleClose: PropTypes.func,
+  setOpen: PropTypes.bool,
+};
 
 export default DrawerComponent;

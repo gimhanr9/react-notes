@@ -6,19 +6,27 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Divider from "@material-ui/core/Divider";
-
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-
-const useStyle = makeStyles((theme) => ({}));
+import AnalyticsDialog from "./AnalyticsDialog";
 
 function Operations() {
-  const classes = useStyle();
+  const [openDialog, setOpenDialog] = React.useState(false);
+
+  function ShowDialog() {
+    setOpenDialog(true);
+  }
+
+  function closeDialog() {
+    setOpenDialog(false);
+  }
+
   const missedOrders = 0;
   const inaccurateOrders = 0;
   const downTimeHours = 0;
   const downTimeMinutes = 0;
   const cancelledOrders = 0;
   const operationsRating = "Excellent";
+  //const title = "Order ID 5158B9";
+  //const date = "Sat,Jul 3,2021";
   return (
     <React.Fragment>
       <List>
@@ -29,11 +37,7 @@ function Operations() {
         <ListItem>
           <ListItemText primary="Missed Orders" secondary={missedOrders} />
           <ListItemSecondaryAction>
-            <IconButton
-              className={classes.icon}
-              edge="end"
-              aria-label="drop-down"
-            >
+            <IconButton edge="end" aria-label="drop-down">
               <ArrowDropDownIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -45,15 +49,13 @@ function Operations() {
             secondary={inaccurateOrders}
           />
           <ListItemSecondaryAction>
-            <IconButton
-              className={classes.icon}
-              edge="end"
-              aria-label="drop-down"
-            >
+            <IconButton onClick={ShowDialog} edge="end" aria-label="drop-down">
               <ArrowDropDownIcon />
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
+
+        <AnalyticsDialog open={openDialog} handleClose={closeDialog} />
         <Divider variant="middle" />
         <ListItem>
           <ListItemText
@@ -61,11 +63,7 @@ function Operations() {
             secondary={downTimeHours + "h " + downTimeMinutes + "m"}
           />
           <ListItemSecondaryAction>
-            <IconButton
-              className={classes.icon}
-              edge="end"
-              aria-label="drop-down"
-            >
+            <IconButton edge="end" aria-label="drop-down">
               <ArrowDropDownIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -78,11 +76,7 @@ function Operations() {
             secondary={cancelledOrders}
           />
           <ListItemSecondaryAction>
-            <IconButton
-              className={classes.icon}
-              edge="end"
-              aria-label="drop-down"
-            >
+            <IconButton edge="end" aria-label="drop-down">
               <ArrowDropDownIcon />
             </IconButton>
           </ListItemSecondaryAction>
