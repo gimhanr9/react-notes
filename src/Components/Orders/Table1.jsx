@@ -6,6 +6,8 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import OrderData from "../../Data/Orders";
 import { useState } from "react";
@@ -116,8 +118,18 @@ function Table1() {
               <StyledTableCell align="left">
                 {"Delivery- " + row.partner}
               </StyledTableCell>
-              <StyledTableCell align="left">
-                {row.location + " " + row.date + "," + row.time}
+              <StyledTableCell
+                style={{ whiteSpace: "normal", wordBreak: "break-word" }}
+                align="left"
+              >
+                <Grid container>
+                  <Grid item lg="12">
+                    <Typography variant="body2">{row.location}</Typography>
+                    <Typography variant="body2">
+                      {row.date + "," + row.time}
+                    </Typography>
+                  </Grid>
+                </Grid>
               </StyledTableCell>
               <StyledTableCell align="left">
                 {"LKR " + row.price}

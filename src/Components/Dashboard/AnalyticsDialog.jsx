@@ -70,7 +70,7 @@ function AnalyticsDialog(props) {
   return (
     <Dialog maxWidth="lg" open={props.open} onClose={handleClose}>
       <StyledDialogTitle onClose={handleClose}>
-        21/07/2021-29/07/2021
+        21/07/2021 - 29/07/2021
       </StyledDialogTitle>
       <Box display="flex" ml={2} mb={2}>
         <Typography variant="subtitle2">Inaccurate Orders(1)</Typography>
