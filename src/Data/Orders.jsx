@@ -29,7 +29,7 @@ const OrderData = [
   },
 
   {
-    id: "CF2032",
+    id: "IF4032",
     name: "Sam",
     partner: "Eat Me Global",
     location: "Cilantro",
@@ -38,7 +38,7 @@ const OrderData = [
     price: "2040",
   },
   {
-    id: "32OF61",
+    id: "65DF61",
     name: "Tom",
     partner: "Eat Me Global",
     location: "Cilantro",
@@ -48,7 +48,7 @@ const OrderData = [
   },
 
   {
-    id: "6124CC",
+    id: "6131BB",
     name: "Kane",
     partner: "Eat Me Global",
     location: "Cilantro",
@@ -58,7 +58,7 @@ const OrderData = [
   },
 
   {
-    id: "CF2032",
+    id: "CF1932",
     name: "Sam",
     partner: "Eat Me Global",
     location: "Cilantro",
@@ -67,7 +67,7 @@ const OrderData = [
     price: "2040",
   },
   {
-    id: "32OF61",
+    id: "FO8961",
     name: "Tom",
     partner: "Eat Me Global",
     location: "Cilantro",
@@ -77,7 +77,35 @@ const OrderData = [
   },
 
   {
-    id: "6124CC",
+    id: "9834CC",
+    name: "Kane",
+    partner: "Eat Me Global",
+    location: "Cilantro",
+    date: "7/09/2021",
+    time: "1:00PM",
+    price: "6500",
+  },
+  {
+    id: "OF5432",
+    name: "Sam",
+    partner: "Eat Me Global",
+    location: "Cilantro",
+    date: "7/11/2021",
+    time: "10:40PM",
+    price: "2040",
+  },
+  {
+    id: "92CD61",
+    name: "Tom",
+    partner: "Eat Me Global",
+    location: "Cilantro",
+    date: "7/10/2021",
+    time: "9:40PM",
+    price: "3000",
+  },
+
+  {
+    id: "9844CF",
     name: "Kane",
     partner: "Eat Me Global",
     location: "Cilantro",

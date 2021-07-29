@@ -31,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
 
   percentage: {
     fontSize: 12,
-    color: "#32CD32",
+    color: "#FF0000",
   },
 
   icon: {
-    color: "#32CD32",
+    color: "#FF0000",
     fontSize: 12,
   },
 }));
@@ -60,7 +60,7 @@ function Customer() {
         >
           {numberOfCustomers}
         </Typography>
-        <Box display="flex" m={-1}>
+        <Box display="flex" mt={-1}>
           <ArrowDownwardIcon className={classes.icon} />
           <span className={classes.percentage}>
             8.7% compared to the last period

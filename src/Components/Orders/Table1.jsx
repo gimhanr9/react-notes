@@ -112,18 +112,20 @@ function Table1() {
           ).map((row, index) => (
             <TableRow hover tabIndex={-1} key={index}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                <Typography variant="body2">{row.name}</Typography>
               </StyledTableCell>
               <StyledTableCell align="left">{row.id}</StyledTableCell>
               <StyledTableCell align="left">
-                {"Delivery- " + row.partner}
+                <Typography variant="body2">
+                  {"Delivery- " + row.partner}
+                </Typography>
               </StyledTableCell>
               <StyledTableCell
                 style={{ whiteSpace: "normal", wordBreak: "break-word" }}
                 align="left"
               >
                 <Grid container>
-                  <Grid item lg="12">
+                  <Grid item lg={12}>
                     <Typography variant="body2">{row.location}</Typography>
                     <Typography variant="body2">
                       {row.date + "," + row.time}
@@ -132,7 +134,7 @@ function Table1() {
                 </Grid>
               </StyledTableCell>
               <StyledTableCell align="left">
-                {"LKR " + row.price}
+                <Typography variant="body2">{"LKR " + row.price}</Typography>
               </StyledTableCell>
             </TableRow>
           ))}
