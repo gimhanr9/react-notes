@@ -20,7 +20,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import StepContent from "@material-ui/core/StepContent";
+//import StepContent from "@material-ui/core/StepContent";
 import StepConnector from "@material-ui/core/StepConnector";
 
 import Box from "@material-ui/core/Box";
@@ -57,7 +57,7 @@ function getStepContent(step) {
     case 1:
       return "Order accepted by restaurant";
 
-    case 3:
+    case 2:
       return "Order delivered to customer";
 
     default:
@@ -78,11 +78,11 @@ const QontoConnector = withStyles({
   },
   completed: {
     "& $line": {
-      borderColor: "#784af4",
+      borderColor: "#0b0b0b",
     },
   },
   line: {
-    borderColor: "#eaeaf0",
+    borderColor: "#0b0b0b",
     borderTopWidth: 3,
     borderRadius: 1,
   },
@@ -90,7 +90,7 @@ const QontoConnector = withStyles({
 
 const useQontoStepIconStyles = makeStyles({
   root: {
-    color: "#eaeaf0",
+    color: "#0b0b0b",
     display: "flex",
     height: 22,
     alignItems: "center",
@@ -115,7 +115,7 @@ function QontoStepIcon() {
   const classes = useQontoStepIconStyles();
 
   return (
-    <div>
+    <div className={classes.root}>
       <div className={classes.circle} />
     </div>
   );
@@ -178,11 +178,16 @@ function OrderDetailsDialog(props) {
           </Grid>
         </Grid>
 
-        <Stepper orientation="vertical" connector={<QontoConnector />}>
+        <Stepper
+          activeStep={3}
+          orientation="vertical"
+          connector={<QontoConnector />}
+        >
           {steps.map((label, index) => (
             <Step key={label}>
-              <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
-              <StepContent>{getStepContent(index)}</StepContent>
+              <StepLabel StepIconComponent={QontoStepIcon}>
+                {label + " - " + getStepContent(index)}
+              </StepLabel>
             </Step>
           ))}
         </Stepper>
