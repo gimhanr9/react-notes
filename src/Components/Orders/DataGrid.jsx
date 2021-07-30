@@ -6,8 +6,50 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import OrderDetailsDialog from "./OrderDetailsDialog";
 import Link from "@material-ui/core/Link";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import { useState } from "react";
+
+const getMuiTheme = () =>
+  createTheme({
+    overrides: {
+      MUIDataTableHeadCell: {
+        data: {
+          color: "white",
+        },
+        sortAction: {
+          "& path": {
+            color: "white ",
+          },
+        },
+        sortActive: {
+          color: "white",
+        },
+      },
+      MuiTableCell: {
+        head: {
+          backgroundColor: "black !important",
+        },
+      },
+
+      /*MUIDataTableToolbar: {
+        root: {
+          backgroundColor: "black",
+          color: "white",
+        },
+
+        iconActive: {
+          color: "white",
+        },
+        icon: {
+          color: "white",
+          "&:hover": {
+            color: "white",
+          },
+        },
+      },*/
+    },
+  });
 
 const useStyles = makeStyles((theme) => ({
   small: {
@@ -21,28 +63,46 @@ function OrderDataGrid() {
     setOpen(false);
   }
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState({
+    isOpen: false,
+    name: "",
+    orderId: "",
+    noOfOrders: 0,
+    avatar: "",
+    total: 0,
+    date: "",
+  });
 
   const data = OrderData;
   const preventDefault = (event) => event.preventDefault();
   const columns = [
     {
-      label: "Customer Name",
-      name: "name",
+      label: "",
+      name: "",
       options: {
         customBodyRenderLite: function render(dataIndex) {
-          let name = data[dataIndex].name;
+          let avatar = data[dataIndex].avatar;
           return (
             <Grid container alignItems="center">
               <Grid item lg={2}>
                 <Link href="#" onClick={preventDefault} color="inherit">
-                  <Avatar
-                    className={classes.small}
-                    src="https://img.icons8.com/plasticine/2x/hamburger.png"
-                    alt=""
-                  />
+                  <Avatar className={classes.small} src={avatar} alt="" />
                 </Link>
               </Grid>
+            </Grid>
+          );
+        },
+      },
+    },
+    {
+      label: "Name",
+      name: "name",
+      options: {
+        customBodyRenderLite: function render(dataIndex) {
+          let name = data[dataIndex].name;
+
+          return (
+            <Grid container alignItems="center">
               <Grid item lg={10}>
                 <Link href="#" onClick={preventDefault} color="inherit">
                   <Typography variant="body2">{name}</Typography>
@@ -68,14 +128,16 @@ function OrderDataGrid() {
       },
     },
     {
-      label: "Partner",
-      name: "partner",
+      label: "Date",
+      name: "date",
       options: {
         customBodyRenderLite: function render(dataIndex) {
-          let partner = data[dataIndex].partner;
+          let date = data[dataIndex].date;
+          let time = data[dataIndex].time;
           return (
             <div>
-              <Typography variant="body2">{partner}</Typography>
+              <Typography variant="body2">{date}</Typography>
+              <Typography variant="body2">{time}</Typography>
             </div>
           );
         },
@@ -83,8 +145,8 @@ function OrderDataGrid() {
     },
 
     {
-      label: "Location",
-      name: "location",
+      label: "Order Type",
+      name: "orderType",
       options: {
         customBodyRenderLite: function render(dataIndex) {
           let location = data[dataIndex].location;
@@ -125,21 +187,31 @@ function OrderDataGrid() {
     download: false,
     onCellClick: (colData, cellMeta) => {
       if (cellMeta.colIndex == 0) {
-        console.log(colData);
-        setOpen(true);
+        setOpen({
+          isOpen: true,
+          name: data[cellMeta.rowIndex].name,
+          orderId: data[cellMeta.rowIndex].id,
+          avatar: data[cellMeta.rowIndex].avatar,
+          total: data[cellMeta.rowIndex].price,
+          date: data[cellMeta.rowIndex].date,
+        });
       }
     },
   };
 
   return (
     <div>
-      <MUIDataTable columns={columns} data={data} options={options} />
+      <ThemeProvider theme={getMuiTheme()}>
+        <MUIDataTable columns={columns} data={data} options={options} />
+      </ThemeProvider>
 
       <OrderDetailsDialog
-        open={open}
-        name="Tom"
-        noOfOrders={23}
-        total={861}
+        open={open.isOpen}
+        name={open.name}
+        avatar={open.avatar}
+        total={open.total}
+        orderId={open.orderId}
+        date={open.date}
         handleClose={closeDialog}
       />
     </div>

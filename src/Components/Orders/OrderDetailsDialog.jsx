@@ -22,9 +22,8 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
 import StepConnector from "@material-ui/core/StepConnector";
-import Box from "@material-ui/core/Box";
 
-//import clsx from "clsx";
+import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
@@ -151,6 +150,7 @@ const StyledDialogTitle = withStyles(styles)((props) => {
 });
 
 function OrderDetailsDialog(props) {
+  const { open, name, avatar, total, orderId, date } = props;
   const classes = useStyles();
   const steps = getSteps();
   function handleClose() {
@@ -158,30 +158,23 @@ function OrderDetailsDialog(props) {
   }
 
   return (
-    <Dialog maxWidth="sm" open={props.open} onClose={handleClose} fullWidth>
+    <Dialog maxWidth="sm" open={open} onClose={handleClose} fullWidth>
       <StyledDialogTitle onClose={handleClose} />
 
       <ListItem>
         <ListItemAvatar>
-          <Avatar
-            className={classes.large}
-            src="https://img.icons8.com/plasticine/2x/hamburger.png"
-            alt=""
-          />
+          <Avatar className={classes.large} src={avatar} alt="" />
         </ListItemAvatar>
-        <ListItemText
-          primary={props.name}
-          secondary={props.noOfOrders + " orders"}
-        />
+        <ListItemText primary={name} />
       </ListItem>
 
       <DialogContent>
         <Grid container justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5">Order</Typography>
+            <Typography variant="h5">{"Order " + orderId}</Typography>
           </Grid>
           <Grid item>
-            <Typography>24/7/2021</Typography>
+            <Typography variant="body2">{date}</Typography>
           </Grid>
         </Grid>
 
@@ -200,7 +193,7 @@ function OrderDetailsDialog(props) {
             <Typography variant="body2">Subtotal</Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body2">LKR {props.total}</Typography>
+            <Typography variant="body2">LKR {total}</Typography>
           </Grid>
         </Grid>
         <Box m={1} />
@@ -210,9 +203,7 @@ function OrderDetailsDialog(props) {
             <Typography variant="body2">Tax Adjustments</Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body2">
-              LKR {(props.total * 5) / 100}
-            </Typography>
+            <Typography variant="body2">LKR {(total * 5) / 100}</Typography>
           </Grid>
         </Grid>
         <Box m={1} />
@@ -222,9 +213,7 @@ function OrderDetailsDialog(props) {
             <Typography variant="body2">EatMe Fee</Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body2">
-              -LKR {(props.total * 10) / 100}
-            </Typography>
+            <Typography variant="body2">-LKR {(total * 10) / 100}</Typography>
           </Grid>
         </Grid>
         <Box m={1} />
@@ -235,9 +224,7 @@ function OrderDetailsDialog(props) {
           </Grid>
           <Grid item>
             <Typography variant="body2">
-              LKR{" "}
-              {props.total -
-                ((props.total * 10) / 100 + (props.total * 5) / 100)}
+              LKR {total - ((total * 10) / 100 + (total * 5) / 100)}
             </Typography>
           </Grid>
         </Grid>
@@ -247,11 +234,13 @@ function OrderDetailsDialog(props) {
 }
 
 OrderDetailsDialog.propTypes = {
-  handleClose: PropTypes.func,
   open: PropTypes.bool,
+  handleClose: PropTypes.func,
   name: PropTypes.string,
-  noOfOrders: PropTypes.number,
+  avatar: PropTypes.string,
   total: PropTypes.number,
+  orderId: PropTypes.string,
+  date: PropTypes.string,
 };
 
 export default OrderDetailsDialog;

@@ -7,6 +7,7 @@ const OrderData = [
     date: "7/11/2021",
     time: "10:40PM",
     price: "2040",
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
   {
     id: "32OF61",
@@ -16,6 +17,7 @@ const OrderData = [
     date: "7/10/2021",
     time: "9:40PM",
     price: "3000",
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
 
   {
@@ -26,6 +28,7 @@ const OrderData = [
     date: "7/09/2021",
     time: "1:00PM",
     price: "6500",
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
 
   {
@@ -36,6 +39,7 @@ const OrderData = [
     date: "7/11/2021",
     time: "10:40PM",
     price: "2040",
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
   {
     id: "65DF61",
@@ -44,7 +48,8 @@ const OrderData = [
     location: "Cilantro",
     date: "7/10/2021",
     time: "9:40PM",
-    price: "3000",
+    price: 3000,
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
 
   {
@@ -54,7 +59,8 @@ const OrderData = [
     location: "Cilantro",
     date: "7/09/2021",
     time: "1:00PM",
-    price: "6500",
+    price: 6500,
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
 
   {
@@ -64,7 +70,8 @@ const OrderData = [
     location: "Cilantro",
     date: "7/11/2021",
     time: "10:40PM",
-    price: "2040",
+    price: 2040,
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
   {
     id: "FO8961",
@@ -73,7 +80,8 @@ const OrderData = [
     location: "Cilantro",
     date: "7/10/2021",
     time: "9:40PM",
-    price: "3000",
+    price: 3000,
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
 
   {
@@ -83,7 +91,8 @@ const OrderData = [
     location: "Cilantro",
     date: "7/09/2021",
     time: "1:00PM",
-    price: "6500",
+    price: 6500,
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
   {
     id: "OF5432",
@@ -92,7 +101,8 @@ const OrderData = [
     location: "Cilantro",
     date: "7/11/2021",
     time: "10:40PM",
-    price: "2040",
+    price: 2040,
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
   {
     id: "92CD61",
@@ -101,7 +111,8 @@ const OrderData = [
     location: "Cilantro",
     date: "7/10/2021",
     time: "9:40PM",
-    price: "3000",
+    price: 3000,
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
 
   {
@@ -111,7 +122,8 @@ const OrderData = [
     location: "Cilantro",
     date: "7/09/2021",
     time: "1:00PM",
-    price: "6500",
+    price: 6500,
+    avatar: "https://img.icons8.com/plasticine/2x/hamburger.png",
   },
 ];
 
