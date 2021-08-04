@@ -15,6 +15,7 @@ import DashBoard from "./Pages/Dashboard";
 import DeleteNote from "./Pages/Delete";
 import Favorites from "./Pages/Favorites";
 import Orders from "./Pages/Orders";
+import Analytics from "./Analytics/Analytics";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -122,6 +123,7 @@ function App() {
             <Route exact path="/delete" component={DeleteNote} />
             <Route exact path="/favorites" component={Favorites} />
             <Route exact path="/orders" component={Orders} />
+            <Route exact path="/analytics" component={Analytics} />
           </Switch>
         </main>
       </div>

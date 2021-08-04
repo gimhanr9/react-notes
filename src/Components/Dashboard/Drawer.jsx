@@ -15,6 +15,7 @@ import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import ShowChartIcon from "@material-ui/icons/ShowChart";
 import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
@@ -77,44 +78,57 @@ function DrawerComponent(props) {
       </List>
       <Divider />
       <List>
-        {["Notes", "Create Note", "Favorites", "Delete", "Orders"].map(
-          (text, index) =>
-            index == 0 ? (
-              <Link key={index} className={classes.linkStyle} to="/notes">
-                <ListItem button>
-                  <ListItemIcon>{<NoteIcon />}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </Link>
-            ) : index == 1 ? (
-              <Link key={index} className={classes.linkStyle} to="/create">
-                <ListItem button>
-                  <ListItemIcon>{<NoteAddIcon />}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </Link>
-            ) : index == 2 ? (
-              <Link key={index} className={classes.linkStyle} to="/favorites">
-                <ListItem button>
-                  <ListItemIcon>{<FavoriteIcon />}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </Link>
-            ) : index == 3 ? (
-              <Link key={index} className={classes.linkStyle} to="/delete">
-                <ListItem button>
-                  <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </Link>
-            ) : (
-              <Link key={index} className={classes.linkStyle} to="/orders">
-                <ListItem button>
-                  <ListItemIcon>{<AttachMoneyIcon />}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </Link>
-            )
+        {[
+          "Notes",
+          "Create Note",
+          "Favorites",
+          "Delete",
+          "Orders",
+          "Analytics",
+        ].map((text, index) =>
+          index == 0 ? (
+            <Link key={index} className={classes.linkStyle} to="/notes">
+              <ListItem button>
+                <ListItemIcon>{<NoteIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          ) : index == 1 ? (
+            <Link key={index} className={classes.linkStyle} to="/create">
+              <ListItem button>
+                <ListItemIcon>{<NoteAddIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          ) : index == 2 ? (
+            <Link key={index} className={classes.linkStyle} to="/favorites">
+              <ListItem button>
+                <ListItemIcon>{<FavoriteIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          ) : index == 3 ? (
+            <Link key={index} className={classes.linkStyle} to="/delete">
+              <ListItem button>
+                <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          ) : index == 4 ? (
+            <Link key={index} className={classes.linkStyle} to="/orders">
+              <ListItem button>
+                <ListItemIcon>{<AttachMoneyIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          ) : (
+            <Link key={index} className={classes.linkStyle} to="/analytics">
+              <ListItem button>
+                <ListItemIcon>{<ShowChartIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          )
         )}
       </List>
     </Drawer>
