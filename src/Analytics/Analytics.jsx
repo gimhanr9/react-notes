@@ -19,6 +19,14 @@ const theme = createTheme({
   },
 });
 
+const buttonTheme = createTheme({
+  palette: {
+    secondary: {
+      main: "#0b0b0b",
+    },
+  },
+});
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -94,21 +102,35 @@ function Analytics() {
             </Grid>
           </Grid>
         ) : null}
-        <ButtonGroup
-          size="large"
-          color="primary"
-          aria-label="large outlined primary button group"
-        >
-          <Button color="primary" onClick={showSales}>
-            Sales
-          </Button>
-          <Button color="primary" onClick={showOrders}>
-            Orders
-          </Button>
-          <Button color="primary" onClick={showTickets}>
-            Tickets
-          </Button>
-        </ButtonGroup>
+        <ThemeProvider theme={buttonTheme}>
+          <ButtonGroup
+            size="large"
+            color="primary"
+            aria-label="large outlined primary button group"
+          >
+            <Button
+              variant={showComponent.sales == true ? "contained" : "text"}
+              color={showComponent.sales == true ? "secondary" : "primary"}
+              onClick={showSales}
+            >
+              Sales
+            </Button>
+            <Button
+              variant={showComponent.orders == true ? "contained" : "text"}
+              color={showComponent.orders == true ? "secondary" : "primary"}
+              onClick={showOrders}
+            >
+              Orders
+            </Button>
+            <Button
+              variant={showComponent.ticket == true ? "contained" : "text"}
+              color={showComponent.ticket == true ? "secondary" : "primary"}
+              onClick={showTickets}
+            >
+              Tickets
+            </Button>
+          </ButtonGroup>
+        </ThemeProvider>
         {showComponent.orders == true ? (
           <Typography>Orders</Typography>
         ) : showComponent.sales == true ? (
