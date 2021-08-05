@@ -9,6 +9,8 @@ import { useState } from "react";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import DatePicker from "../Components/Date/DatePicker";
 import Typography from "@material-ui/core/Typography";
+import SalesTable from "../Components/Analytics/SalesTable";
+//import Charts from "../Components/Analytics/FusionCharts";
 //import { Link } from "react-router-dom";
 
 const theme = createTheme({
@@ -134,7 +136,7 @@ function Analytics() {
         {showComponent.orders == true ? (
           <Typography>Orders</Typography>
         ) : showComponent.sales == true ? (
-          <Typography>Sales</Typography>
+          <SalesTable />
         ) : showComponent.ticket == true ? (
           <Typography>Ticket</Typography>
         ) : null}
