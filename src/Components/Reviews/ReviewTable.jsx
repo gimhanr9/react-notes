@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import OrderDialog from "../Orders/OrderDialog";
 
 import Link from "@material-ui/core/Link";
 import Rating from "@material-ui/lab/Rating";
@@ -13,6 +12,8 @@ import Rating from "@material-ui/lab/Rating";
 import { createTheme } from "@material-ui/core/styles";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { useState } from "react";
+import ReplyDialog from "./ReplyDialog";
+import ReviewDialog from "./ReviewDialog";
 
 const useStyles = makeStyles((theme) => ({
   small: {
@@ -86,12 +87,17 @@ const getMuiTheme = () =>
   });
 
 function ReviewTable() {
-  function closeDialog() {
-    setOpen(false);
+  function closeReviewDialog() {
+    setReviewOpen(false);
+  }
+
+  function closeReplyDialog() {
+    setReplyOpen(false);
   }
 
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [reviewOpen, setReviewOpen] = useState(false);
+  const [replyOpen, setReplyOpen] = useState(false);
   const data = OrderData;
   const preventDefault = (event) => event.preventDefault();
 
@@ -103,8 +109,8 @@ function ReviewTable() {
         customBodyRenderLite: function render(dataIndex) {
           let img = data[dataIndex].img;
           return (
-            <Grid container alignItems="left">
-              <Grid item lg={2}>
+            <Grid container style={{ marginRight: "-20px" }}>
+              <Grid item>
                 <Avatar className={classes.small} src={img} alt="" />
               </Grid>
             </Grid>
@@ -120,7 +126,7 @@ function ReviewTable() {
           let name = data[dataIndex].name;
           return (
             <Grid container alignItems="left">
-              <Grid item lg={12}>
+              <Grid item>
                 <Typography variant="body2">{name}</Typography>
               </Grid>
             </Grid>
@@ -231,17 +237,25 @@ function ReviewTable() {
     elevation: 0,
 
     onCellClick: (colData, cellMeta) => {
-      if (cellMeta.colIndex == 2) {
+      if (cellMeta.colIndex == 5) {
         //console.log(renderId(cellMeta.dataIndex));
         //let id = renderId(cellMeta.dataIndex);
 
-        setOpen({
+        setReplyOpen({
           isOpen: true,
           name: data[cellMeta.rowIndex].name,
           orderId: data[cellMeta.rowIndex].id,
           avatar: data[cellMeta.rowIndex].img,
-          total: data[cellMeta.rowIndex].price,
           date: data[cellMeta.rowIndex].date,
+        });
+      } else if (cellMeta.colIndex == 4) {
+        setReviewOpen({
+          open: true,
+          orderId: data[cellMeta.rowIndex].id,
+          date: data[cellMeta.rowIndex].date,
+          rating: data[cellMeta.rowIndex].rating,
+          name: data[cellMeta.rowIndex].name,
+          time: data[cellMeta.rowIndex].time,
         });
       }
     },
@@ -251,14 +265,23 @@ function ReviewTable() {
       <MuiThemeProvider theme={getMuiTheme()}>
         <MUIDataTable columns={columns} data={data} options={options} />
       </MuiThemeProvider>
-      <OrderDialog
-        open={open.isOpen}
-        name={open.name}
-        avatar={open.avatar}
-        total={open.total}
-        orderId={open.orderId}
-        date={open.date}
-        handleClose={closeDialog}
+      <ReplyDialog
+        open={replyOpen.isOpen}
+        name={replyOpen.name}
+        avatar={replyOpen.avatar}
+        orderId={replyOpen.orderId}
+        date={replyOpen.date}
+        handleClose={closeReplyDialog}
+      />
+
+      <ReviewDialog
+        open={reviewOpen.open}
+        orderId={reviewOpen.orderId}
+        date={reviewOpen.date}
+        rating={reviewOpen.rating}
+        name={reviewOpen.name}
+        time={reviewOpen.time}
+        handleClose={closeReviewDialog}
       />
     </div>
   );
