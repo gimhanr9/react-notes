@@ -25,6 +25,8 @@ import StepConnector from "@material-ui/core/StepConnector";
 
 import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { closeDialog } from "../../Actions/Actions";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -149,17 +151,21 @@ const StyledDialogTitle = withStyles(styles)((props) => {
   );
 });
 
-function OrderDetailsDialog(props) {
-  const { open, name, avatar, total, orderId, date } = props;
+function OrderDetailsDialog({
+  isOpen,
+  name,
+  avatar,
+  total,
+  orderId,
+  date,
+  closeDialogs,
+}) {
   const classes = useStyles();
   const steps = getSteps();
-  function handleClose() {
-    props.handleClose();
-  }
 
   return (
-    <Dialog maxWidth="sm" open={open} onClose={handleClose} fullWidth>
-      <StyledDialogTitle onClose={handleClose} />
+    <Dialog maxWidth="sm" open={isOpen} onClose={closeDialogs} fullWidth>
+      <StyledDialogTitle onClose={closeDialogs} />
 
       <ListItem>
         <ListItemAvatar>
@@ -238,14 +244,27 @@ function OrderDetailsDialog(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  isOpen: state.dialog.open,
+  orderId: state.dialog.orderId,
+  name: state.dialog.name,
+  avatar: state.dialog.avatar,
+  total: state.dialog.total,
+  date: state.dialog.date,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  closeDialogs: () => dispatch(closeDialog()),
+});
+
 OrderDetailsDialog.propTypes = {
-  open: PropTypes.bool,
-  handleClose: PropTypes.func,
+  isOpen: PropTypes.bool,
   name: PropTypes.string,
   avatar: PropTypes.string,
   total: PropTypes.number,
   orderId: PropTypes.string,
   date: PropTypes.string,
+  closeDialogs: PropTypes.func,
 };
 
-export default OrderDetailsDialog;
+export default connect(mapStateToProps, mapDispatchToProps)(OrderDetailsDialog);

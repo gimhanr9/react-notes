@@ -7,16 +7,40 @@ import { makeStyles } from "@material-ui/core/styles";
 import OrderDetailsDialog from "./OrderDetailsDialog";
 import Link from "@material-ui/core/Link";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Rating from "@material-ui/lab/Rating";
+import { openDialog } from "../../Actions/Actions";
 
-import { useState } from "react";
-
+const useStyles = makeStyles((theme) => ({
+  small: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+}));
 const getMuiTheme = () =>
   createTheme({
     overrides: {
+      MuiChip: {
+        root: {
+          backgroundColor: "black",
+          color: "white",
+        },
+        deleteIcon: {
+          color: "white",
+          "&:hover": {
+            color: "white",
+          },
+        },
+      },
       MUIDataTableHeadCell: {
+        root: {
+          padding: "10px",
+        },
         data: {
           color: "white",
         },
+
         sortAction: {
           "& path": {
             color: "white ",
@@ -27,51 +51,34 @@ const getMuiTheme = () =>
         },
       },
       MuiTableCell: {
+        root: {
+          padding: "10px",
+        },
         head: {
           backgroundColor: "black !important",
         },
       },
 
-      /*MUIDataTableToolbar: {
+      MUIDataTableToolbar: {
+        filterPaper: {
+          width: "400px",
+          height: "350px",
+        },
+      },
+      MuiInput: {
         root: {
-          backgroundColor: "black",
-          color: "white",
-        },
-
-        iconActive: {
-          color: "white",
-        },
-        icon: {
-          color: "white",
-          "&:hover": {
-            color: "white",
+          // width: "300px",
+          input: {
+            "&:hover": {
+              borderColor: "orange !important",
+            },
           },
         },
-      },*/
+      },
     },
   });
-
-const useStyles = makeStyles((theme) => ({
-  small: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-  },
-}));
-
-function OrderDataGrid() {
-  function closeDialog() {
-    setOpen(false);
-  }
+function OrderDataGrid({ openDialogs }) {
   const classes = useStyles();
-  const [open, setOpen] = useState({
-    isOpen: false,
-    name: "",
-    orderId: "",
-    noOfOrders: 0,
-    avatar: "",
-    total: 0,
-    date: "",
-  });
 
   const data = OrderData;
   const preventDefault = (event) => event.preventDefault();
@@ -81,13 +88,11 @@ function OrderDataGrid() {
       name: "",
       options: {
         customBodyRenderLite: function render(dataIndex) {
-          let avatar = data[dataIndex].avatar;
+          let img = data[dataIndex].img;
           return (
-            <Grid container alignItems="center">
+            <Grid container alignItems="left">
               <Grid item lg={2}>
-                <Link href="#" onClick={preventDefault} color="inherit">
-                  <Avatar className={classes.small} src={avatar} alt="" />
-                </Link>
+                <Avatar className={classes.small} src={img} alt="" />
               </Grid>
             </Grid>
           );
@@ -96,17 +101,14 @@ function OrderDataGrid() {
     },
     {
       label: "Name",
-      name: "name",
+      name: "name", //Search option dependennt
       options: {
         customBodyRenderLite: function render(dataIndex) {
           let name = data[dataIndex].name;
-
           return (
-            <Grid container alignItems="center">
-              <Grid item lg={10}>
-                <Link href="#" onClick={preventDefault} color="inherit">
-                  <Typography variant="body2">{name}</Typography>
-                </Link>
+            <Grid container alignItems="left">
+              <Grid item lg={12}>
+                <Typography variant="body2">{name}</Typography>
               </Grid>
             </Grid>
           );
@@ -114,14 +116,20 @@ function OrderDataGrid() {
       },
     },
     {
-      label: "ID",
+      label: "Order",
       name: "id",
       options: {
-        customBodyRenderLite: function render(dataIndex) {
-          let id = data[dataIndex].id;
+        customBodyRender: function render(value, tableMeta, updateValue) {
+          //orderId = value;
+          //let id = data[dataIndex].id;
+          console.log(tableMeta, updateValue);
           return (
             <div>
-              <Typography variant="body2">{id}</Typography>
+              <Link href="#" onClick={preventDefault} color="inherit">
+                <Typography align="left" variant="body2">
+                  {value}
+                </Typography>
+              </Link>
             </div>
           );
         },
@@ -132,46 +140,168 @@ function OrderDataGrid() {
       name: "date",
       options: {
         customBodyRenderLite: function render(dataIndex) {
+          // let location = data[dataIndex].location;
           let date = data[dataIndex].date;
           let time = data[dataIndex].time;
           return (
-            <div>
-              <Typography variant="body2">{date}</Typography>
-              <Typography variant="body2">{time}</Typography>
+            <div style={{ marginTop: "5px" }}>
+              <Typography
+                align="left"
+                variant="body2"
+                style={{ fontSize: "12px" }}
+              >
+                {date}
+              </Typography>
+              <Typography
+                align="left"
+                variant="body2"
+                style={{ fontSize: "12px" }}
+              >
+                {time}
+                {/* {date + "," + time} */}
+              </Typography>
             </div>
           );
         },
+        // download: true,
       },
     },
-
     {
-      label: "Order Type",
-      name: "orderType",
+      label: "Type",
+      name: "type",
       options: {
         customBodyRenderLite: function render(dataIndex) {
-          let location = data[dataIndex].location;
-          let date = data[dataIndex].date;
-          let time = data[dataIndex].time;
+          let Type = data[dataIndex].type;
           return (
             <div>
-              <Typography variant="body2">{location}</Typography>
-              <Typography variant="body2">{date + "," + time}</Typography>
+              <Typography align="left" variant="body2">
+                {Type}
+              </Typography>
             </div>
           );
         },
-        download: true,
       },
     },
-
     {
-      label: "Price",
+      label: "Rating",
+      name: "rating",
+      options: {
+        customBodyRenderLite: function render(dataIndex) {
+          let rating = data[dataIndex].rating;
+          return (
+            <Grid container alignItems="left">
+              <Grid item lg={12}>
+                <Rating
+                  value={rating}
+                  precision={0.5}
+                  style={{
+                    fontSize: "18px",
+                    color: "#FF5E19",
+                  }}
+                />
+              </Grid>
+            </Grid>
+          );
+        },
+      },
+    },
+    {
+      label: "Status",
+      name: "status",
+      options: {
+        customBodyRenderLite: function render(dataIndex) {
+          let OrderStatus = data[dataIndex].status;
+          return (
+            <div>
+              <Typography align="left" variant="body2">
+                {OrderStatus}
+              </Typography>
+            </div>
+          );
+        },
+      },
+    },
+    {
+      label: "Order Value (LKR)",
       name: "price",
       options: {
         customBodyRenderLite: function render(dataIndex) {
           let price = data[dataIndex].price;
           return (
             <div>
-              <Typography variant="body2">{price}</Typography>
+              <Typography align="center" variant="body2">
+                {price}
+              </Typography>
+            </div>
+          );
+        },
+      },
+    },
+    {
+      label: "Commision Savings (LKR)",
+      name: "commision",
+      options: {
+        customBodyRenderLite: function render(dataIndex) {
+          let Commision = data[dataIndex].commision;
+          return (
+            <div>
+              <Typography align="center" variant="body2">
+                {Commision}
+              </Typography>
+            </div>
+          );
+        },
+      },
+    },
+
+    {
+      label: "Preparation Time (Min)",
+      name: "preparation",
+      options: {
+        customBodyRenderLite: function render(dataIndex) {
+          // let location = data[dataIndex].location;
+          let PreparationTime = data[dataIndex].preparationTime;
+          return (
+            <div>
+              <Typography align="center" variant="body2">
+                {PreparationTime}
+              </Typography>
+            </div>
+          );
+        },
+        // download: true,
+      },
+    },
+    {
+      label: "Delivery Time (Min)",
+      name: "delivery",
+      options: {
+        customBodyRenderLite: function render(dataIndex) {
+          // let location = data[dataIndex].location;
+          let DeliveryTime = data[dataIndex].Delivery;
+          return (
+            <div>
+              <Typography align="center" variant="body2">
+                {DeliveryTime}
+              </Typography>
+            </div>
+          );
+        },
+        // download: true,
+      },
+    },
+    {
+      label: "Total Time (Min)",
+      name: "total",
+      options: {
+        customBodyRenderLite: function render(dataIndex) {
+          let DeliveryTime = data[dataIndex].Delivery;
+          let PreparationTime = data[dataIndex].preparationTime;
+          return (
+            <div>
+              <Typography align="center" variant="body2">
+                {PreparationTime + DeliveryTime}
+              </Typography>
             </div>
           );
         },
@@ -186,15 +316,26 @@ function OrderDataGrid() {
     expandableRowsHeader: false,
     download: false,
     onCellClick: (colData, cellMeta) => {
-      if (cellMeta.colIndex == 0) {
-        setOpen({
-          isOpen: true,
-          name: data[cellMeta.rowIndex].name,
-          orderId: data[cellMeta.rowIndex].id,
-          avatar: data[cellMeta.rowIndex].avatar,
-          total: data[cellMeta.rowIndex].price,
-          date: data[cellMeta.rowIndex].date,
-        });
+      if (cellMeta.colIndex == 2) {
+        openDialogs(
+          true,
+          data[cellMeta.rowIndex].name,
+          data[cellMeta.rowIndex].id,
+          data[cellMeta.rowIndex].img,
+          data[cellMeta.rowIndex].price,
+          data[cellMeta.rowIndex].date
+        );
+        /*props.dispatch({
+          type: "OPEN_DIALOG",
+          payload: {
+            isOpen: true,
+            name: data[cellMeta.rowIndex].name,
+            orderId: data[cellMeta.rowIndex].id,
+            avatar: data[cellMeta.rowIndex].avatar,
+            total: data[cellMeta.rowIndex].price,
+            date: data[cellMeta.rowIndex].date,
+          },
+        });*/
       }
     },
   };
@@ -202,20 +343,26 @@ function OrderDataGrid() {
   return (
     <div>
       <ThemeProvider theme={getMuiTheme()}>
-        <MUIDataTable columns={columns} data={data} options={options} />
+        <MUIDataTable
+          maxWidth={"lg"}
+          columns={columns}
+          data={data}
+          options={options}
+        />
       </ThemeProvider>
 
-      <OrderDetailsDialog
-        open={open.isOpen}
-        name={open.name}
-        avatar={open.avatar}
-        total={open.total}
-        orderId={open.orderId}
-        date={open.date}
-        handleClose={closeDialog}
-      />
+      <OrderDetailsDialog />
     </div>
   );
 }
+const mapStateToProps = () => ({});
 
-export default OrderDataGrid;
+const mapDispatchToProps = (dispatch) => ({
+  openDialogs: (open, name, orderId, avatar, price, date) =>
+    dispatch(openDialog(open, name, orderId, avatar, price, date)),
+});
+
+OrderDataGrid.propTypes = {
+  openDialogs: PropTypes.func,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(OrderDataGrid);
