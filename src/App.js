@@ -16,6 +16,8 @@ import DeleteNote from "./Pages/Delete";
 import Favorites from "./Pages/Favorites";
 import Orders from "./Pages/Orders";
 import Analytics from "./Analytics/Analytics";
+import Market from "./Pages/Market";
+import Reviews from "./Pages/Reviews";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -124,6 +126,8 @@ function App() {
             <Route exact path="/favorites" component={Favorites} />
             <Route exact path="/orders" component={Orders} />
             <Route exact path="/analytics" component={Analytics} />
+            <Route exact path="/market" component={Market} />
+            <Route exact path="/reviews" component={Reviews} />
           </Switch>
         </main>
       </div>

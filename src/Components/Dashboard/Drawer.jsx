@@ -16,6 +16,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
+import BusinessIcon from "@material-ui/icons/Business";
+import StarIcon from "@material-ui/icons/Star";
 import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
@@ -85,6 +87,8 @@ function DrawerComponent(props) {
           "Delete",
           "Orders",
           "Analytics",
+          "Market",
+          "Reviews",
         ].map((text, index) =>
           index == 0 ? (
             <Link key={index} className={classes.linkStyle} to="/notes">
@@ -121,10 +125,24 @@ function DrawerComponent(props) {
                 <ListItemText primary={text} />
               </ListItem>
             </Link>
-          ) : (
+          ) : index == 5 ? (
             <Link key={index} className={classes.linkStyle} to="/analytics">
               <ListItem button>
                 <ListItemIcon>{<ShowChartIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          ) : index == 6 ? (
+            <Link key={index} className={classes.linkStyle} to="/market">
+              <ListItem button>
+                <ListItemIcon>{<BusinessIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          ) : (
+            <Link key={index} className={classes.linkStyle} to="/reviews">
+              <ListItem button>
+                <ListItemIcon>{<StarIcon />}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
             </Link>

@@ -1,5 +1,6 @@
 import React from "react";
-//import OrderTable from "../Components/Orders/Table";
+//import DataGrid from "../Components/Orders/DataGrid";
+//import OrderTable from "../Components/Orders/OrderTable";
 
 import OrderDataGrid from "../Components/Orders/DataGrid";
 

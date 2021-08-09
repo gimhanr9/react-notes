@@ -9,7 +9,9 @@ import { useState } from "react";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import DatePicker from "../Components/Date/DatePicker";
 import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import SalesTable from "../Components/Analytics/SalesTable";
+import FunnelCharts from "../Components/Analytics/FunnelCharts";
 //import Charts from "../Components/Analytics/FusionCharts";
 //import { Link } from "react-router-dom";
 
@@ -136,7 +138,11 @@ function Analytics() {
         {showComponent.orders == true ? (
           <Typography>Orders</Typography>
         ) : showComponent.sales == true ? (
-          <SalesTable />
+          <div>
+            <SalesTable />
+            <Box m={7} />
+            <FunnelCharts />
+          </div>
         ) : showComponent.ticket == true ? (
           <Typography>Ticket</Typography>
         ) : null}
