@@ -16,11 +16,13 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
+
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 600,
   },
   button: {
+    textTransform: "none",
     backgroundColor: "#0b0b0b",
     color: "#ffffff",
     "&:hover": {
@@ -80,14 +82,15 @@ function ReplyDialog(props) {
           </Grid>
         </Grid>
         <Box m={2} />
-        <Grid container justifyContent="flex-end">
+
+        <Grid container spacing={2}>
           <Grid item>
-            <Button color="primary" onClick={handleClose}>
+            <Button className={classes.button} onClick={handleClose}>
               Cancel
             </Button>
           </Grid>
           <Grid item>
-            <Button color="primary">Reply</Button>
+            <Button className={classes.button}>Reply</Button>
           </Grid>
         </Grid>
       </DialogContent>
