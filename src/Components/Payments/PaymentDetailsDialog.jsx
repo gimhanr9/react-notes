@@ -15,6 +15,7 @@ const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
+    marginBottom: theme.spacing(-2),
   },
   closeButton: {
     position: "absolute",
@@ -24,17 +25,24 @@ const styles = (theme) => ({
   },
 });
 const StyledDialogTitle = withStyles(styles)((props) => {
-  const { classes, onClose, ...other } = props;
+  const { classes, onClose, date, time, ...other } = props;
   return (
     <DialogTitle disableTypography className={classes.root} {...other}>
       {onClose ? (
-        <IconButton
-          aria-label="close"
-          className={classes.closeButton}
-          onClick={onClose}
-        >
-          <CloseIcon fontSize="small" />
-        </IconButton>
+        <Grid container>
+          <Grid item>
+            <Typography variant="subtitle1">{date + "," + time}</Typography>
+          </Grid>
+          <Grid container>
+            <IconButton
+              aria-label="close"
+              className={classes.closeButton}
+              onClick={onClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </Grid>
+        </Grid>
       ) : null}
     </DialogTitle>
   );
@@ -47,18 +55,14 @@ function PaymentDetailsDialog(props) {
   }
   return (
     <Dialog maxWidth="sm" open={open} onClose={handleClose} fullWidth>
-      <StyledDialogTitle onClose={handleClose} />
-      <Box m={3} />
+      <StyledDialogTitle date={date} time={time} onClose={handleClose} />
 
       <DialogContent>
-        <Grid container justifyContent="space-between">
-          <Grid item>
-            <Typography variant="h5">{"Order " + orderId}</Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="body2">{date + "," + time}</Typography>
-          </Grid>
-        </Grid>
+        <div>
+          <Typography variant="subtitle1" style={{ fontWeight: 500 }}>
+            {"Order " + orderId}
+          </Typography>
+        </div>
 
         <Divider />
         <Box m={2} />
